@@ -1,0 +1,93 @@
+/* popup.css: estilos extraídos de popup.html */
+
+.hotkey-label {
+  font-size: 12px;
+}
+.hotkey-input {
+  width: 140px;
+  margin-left: 6px;
+  font-size: 12px;
+  padding: 3px 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: #fff;
+  min-width: 0;
+  outline: none;
+  text-align: center;
+  letter-spacing: 1px;
+}
+.hotkey-info {
+  font-size: 11px;
+  color: #888;
+  display: block;
+  margin-top: 4px;
+}
+.site-toggle-margin {
+  margin-top: 18px;
+}
+.reload-icon-path {
+  stroke: #4f8cff;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.plus-icon-circle {
+  stroke: #4f8cff;
+  stroke-width: 1.5;
+  fill: #fff;
+}
+.plus-icon-path {
+  stroke: #4f8cff;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}
+.main-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #e0e0e0;
+  margin-bottom: 8px;
+}
+.header-icon {
+  display: flex;
+  align-items: center;
+  margin-right: 8px;
+}
+.header-title {
+  font-size: 15px;
+  font-weight: bold;
+  color: #2566d6;
+  letter-spacing: 1px;
+  flex: 1;
+  text-align: left;
+}
+.header-slider {
+  display: flex;
+  align-items: center;
+  margin-left: 8px;
+}
+.pencil-body {
+  stroke: #4f8cff;
+  stroke-width: 1.2;
+  fill: #fff;
+}
+.pencil-tip {
+  stroke: #4f8cff;
+  stroke-width: 1.2;
+  fill: #ffb300;
+}
+.site-toggle[style*="display:none"] {
+  display: none !important;
+}
+.global-msg {
+  font-size: 8px;
+  color: #888;
+  margin: 2px 0 8px 0;
+  padding-left: 2px;
+}
+.global-check {
+  margin-right: 7px;
+  accent-color: #4f8cff;
+  vertical-align: middle;
+} 

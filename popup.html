@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+	<meta charset="UTF-8" />
+	<title>Palabras a Resaltar</title>
+	<link rel="stylesheet" href="popup.css" />
+	<style>
+		body {
+			font-family: "Segoe UI", Arial, sans-serif;
+			margin: 0;
+			padding: 16px 16px 8px 16px;
+			width: 280px;
+			background: #f7f7fa;
+			color: #222;
+			font-size: 12px;
+		}
+
+		h3 {
+			margin-top: 0;
+			font-size: 1.1em;
+			color: #3a3a5a;
+			letter-spacing: 0.5px;
+		}
+
+		form {
+			display: flex;
+			gap: 6px;
+			margin-bottom: 10px;
+		}
+
+		input[type="text"] {
+			flex: 1;
+			padding: 3px 6px;
+			border: 1px solid #ccc;
+			border-radius: 4px;
+			font-size: 12px;
+			background: #fff;
+			min-width: 0;
+		}
+
+		input[type="text"]::placeholder {
+			font-size: 11px;
+			color: #aaa;
+		}
+
+		input[type="color"] {
+			width: 24px;
+			height: 24px;
+			border: none;
+			background: none;
+			padding: 0;
+			cursor: pointer;
+		}
+
+		button[type="submit"] {
+			background: #4f8cff;
+			color: #fff;
+			border: none;
+			border-radius: 4px;
+			padding: 4px 2px;
+			font-size: 12px;
+			cursor: pointer;
+			transition: background 0.2s;
+			height: 24px;
+		}
+
+		button[type="submit"]:hover {
+			background: #2566d6;
+		}
+
+		ul {
+			list-style: none;
+			padding-left: 0;
+			margin: 0 0 10px 0;
+			max-height: 120px;
+			overflow-y: auto;
+		}
+
+		li {
+			display: flex;
+			align-items: center;
+			background: #fff;
+			border-radius: 4px;
+			margin-bottom: 5px;
+			padding: 2px 6px;
+			box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+			font-size: 12px;
+		}
+
+		li input[type="color"] {
+			margin-right: 6px;
+			width: 16px;
+			height: 16px;
+		}
+
+		li button {
+			margin-left: auto;
+			background: #ff4f4f;
+			color: #fff;
+			border: none;
+			border-radius: 4px;
+			padding: 1px 7px;
+			font-size: 11px;
+			cursor: pointer;
+			transition: background 0.2s;
+		}
+
+		li button:hover {
+			background: #d62c2c;
+		}
+
+		.footer {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-top: 8px;
+		}
+
+		#toggleExtensionBtn {
+			background: #e0e0e0;
+			color: #333;
+			border: none;
+			border-radius: 4px;
+			padding: 4px 12px;
+			font-size: 12px;
+			cursor: pointer;
+			transition: background 0.2s;
+			box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+			height: 24px;
+		}
+
+		#toggleExtensionBtn:hover {
+			background: #bdbdbd;
+		}
+
+		.header-bar {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			margin-bottom: 6px;
+		}
+
+		#reloadPageBtn {
+			background: none;
+			border: none;
+			padding: 0;
+			cursor: pointer;
+			margin-left: 6px;
+			outline: none;
+			display: flex;
+			align-items: center;
+			transition: background 0.2s;
+		}
+
+		#reloadPageBtn:hover svg path {
+			stroke: #2566d6;
+		}
+
+		.tab-bar {
+			display: flex;
+			border-bottom: 1px solid #e0e0e0;
+			margin-bottom: 8px;
+		}
+
+		.tab-btn {
+			flex: 1;
+			background: none;
+			border: none;
+			padding: 7px 0;
+			font-size: 12px;
+			color: #4f8cff;
+			cursor: pointer;
+			border-bottom: 2px solid transparent;
+			transition: border 0.2s, color 0.2s;
+		}
+
+		.tab-btn.active {
+			color: #2566d6;
+			border-bottom: 2px solid #2566d6;
+			font-weight: bold;
+		}
+
+		.tab-content {
+			display: none;
+		}
+
+		.tab-content.active {
+			display: block;
+		}
+
+		#hotkeyInput {
+			font-size: 12px;
+			padding: 3px 6px;
+			border: 1px solid #ccc;
+			border-radius: 4px;
+			background: #fff;
+			margin-top: 6px;
+			min-width: 0;
+			outline: none;
+			text-align: center;
+			letter-spacing: 1px;
+		}
+
+		.site-toggle {
+			display: flex;
+			align-items: center;
+			gap: 6px;
+		}
+
+		.site-toggle-label {
+			font-size: 11px;
+			color: #444;
+		}
+
+		.switch {
+			position: relative;
+			display: inline-block;
+			width: 32px;
+			height: 18px;
+		}
+
+		.switch input {
+			opacity: 0;
+			width: 0;
+			height: 0;
+		}
+
+		.slider {
+			position: absolute;
+			cursor: pointer;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background-color: #ccc;
+			transition: .2s;
+			border-radius: 18px;
+		}
+
+		.slider:before {
+			position: absolute;
+			content: "";
+			height: 14px;
+			width: 14px;
+			left: 2px;
+			bottom: 2px;
+			background-color: white;
+			transition: .2s;
+			border-radius: 50%;
+			box-shadow: 0 1px 2px rgba(0,0,0,0.10);
+		}
+
+		input:checked + .slider {
+			background-color: #4f8cff;
+		}
+
+		input:checked + .slider:before {
+			transform: translateX(14px);
+		}
+	</style>
+</head>
+
+<body>
+	<div class="main-header">
+		<span class="header-icon">
+			<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path class="pencil-body" d="M15.5 2.5l2 2c.4.4.4 1 0 1.4l-9.8 9.8-3.2.8.8-3.2 9.8-9.8c.4-.4 1-.4 1.4 0z"/>
+				<path class="pencil-tip" d="M4.5 15.5l3.2-.8-2.4-2.4-.8 3.2z"/>
+			</svg>
+		</span>
+		<span class="header-title">R-WORD</span>
+		<span class="header-slider">
+			<label class="switch">
+				<input type="checkbox" id="siteActiveSwitchHeader">
+				<span class="slider"></span>
+			</label>
+		</span>
+	</div>
+	<div class="tab-bar">
+		<button class="tab-btn active" id="tabWordsBtn">Palabras</button>
+		<button class="tab-btn" id="tabConfigBtn">Configuración</button>
+	</div>
+	<div id="tabWords" class="tab-content active">
+		<div class="header-bar">
+			<h3>Palabras a resaltar</h3>
+			<button id="reloadPageBtn" title="Recargar página actual">
+				<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M10 3v2.5a.5.5 0 0 0 .5.5H15a.5.5 0 0 0 .5-.5V3" class="reload-icon-path"/>
+					<path d="M17 10a7 7 0 1 1-2.05-4.95" class="reload-icon-path"/>
+				</svg>
+			</button>
+		</div>
+		<form id="addForm">
+			<input type="text" id="wordInput" placeholder="Agregar palabra" required />
+			<input type="color" id="colorInput" value="#ffff00" title="Color de resaltado" />
+			<input type="text" id="selectorInput" placeholder="Selector CSS" />
+			<button type="submit" title="Agregar palabra">
+				<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<circle cx="8" cy="8" r="7" class="plus-icon-circle"/>
+					<path d="M8 4.5V11.5" class="plus-icon-path"/>
+					<path d="M4.5 8H11.5" class="plus-icon-path"/>
+				</svg>
+			</button>
+		</form>
+		<ul id="wordList"></ul>
+		<div class="global-msg">Las palabras marcadas se resaltarán en todos los sitios. (Global)</div>
+		<div class="footer">
+			<button id="toggleExtensionBtn">Pausar complemento</button>
+		</div>
+	</div>
+	<div id="tabConfig" class="tab-content">
+		<h3>Configuración</h3>
+		<label for="hotkeyInput" class="hotkey-label">Combinación de teclas para pausar/activar y recargar:</label>
+		<input type="text" id="hotkeyInput" placeholder="Ej: Ctrl+Shift+R" readonly class="hotkey-input" />
+		<span id="hotkeyInfo" class="hotkey-info">Presiona la combinación deseada</span>
+		<div class="site-toggle site-toggle-margin" style="display:none;">
+			<label class="switch">
+				<input type="checkbox" id="siteActiveSwitch">
+				<span class="slider"></span>
+			</label>
+			<span class="site-toggle-label">Resaltado activo en este sitio</span>
+		</div>
+	</div>
+	<script src="popup.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,13 @@
+.nueva-highlight {
+  background-color: #ffff00;
+  color: #000000 !important;
+  padding: 2px 8px !important;
+  border-radius: 12px !important;
+  font-weight: 500 !important;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.10) !important;
+  border: 1.5px solid #e0e0e0 !important;
+  display: inline-block;
+  margin: 0 2px;
+  font-size: 1em;
+  transition: background 0.2s, color 0.2s;
+}
